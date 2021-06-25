@@ -1,0 +1,27 @@
+server:
+  port: 9090
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:8761/eureka/
+    register-with-eureka: true
+
+zuul:
+  #Service will be mapped under the /api URI
+  prefix: /api
+  routes:
+    service:
+      sensitiveHeaders:
+      path: /**
+      serviceId: nodeservice
+    account:
+      sensitiveHeaders:
+      path: /uaa/**
+      stripPrefix: false
+      serviceId: accountservice
+#  Uncomment to disable auto-registering all services read from Eureka
+#  ignoredServices: '*'
+spring:
+  application:
+    name: zuul-api-gateway-server
